@@ -14,6 +14,73 @@ import runSequence from 'run-sequence';
 
 import ExampleBase from './example/base.jsx';
 
+const css = `
+body {
+    max-width: inherit;
+}
+.DateRangePicker {
+  width: 100%;
+}
+.DateRangePicker__Month {
+  width: 100%;
+}
+.DateRangePicker__Date {
+  height: 10vh;
+  border: none !important;
+}
+.DateRangePicker__DateLabel {
+  position: absolute;
+  padding: 10px;
+  top: 0;
+  text-align: left;
+  width: auto;
+}
+.DateRangePicker__Date--today {
+  background-color: #fee;
+}
+.DateRangePicker__Date--otherMonth {
+  visibility: hidden;
+}
+.DateRangePicker__FullDateStates {
+  display: none;
+  height: 20px;
+}
+.DateRangePicker__HalfDateStates {
+  display: none;
+  -webkit-transform: inherit;
+  transform: inherit;
+  top: 0;
+  left: 0;
+}
+.DateRangePicker__CalendarDatePeriod--am,
+.DateRangePicker__CalendarDatePeriod--pm {
+  display: none;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 40px;
+}
+.DateRangePicker__CalendarHighlight--single {
+  background-color: inherit;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+}
+
+  .__event {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  margin: 0;
+  margin-top: 26px;
+  text-align: left;
+  background-color: #eee;
+  padding: 4px;
+}
+`
 
 const plugins = gulpLoadPlugins();
 const PRODUCTION = (process.env.NODE_ENV === 'production');
@@ -144,7 +211,7 @@ gulp.task('watch-example-js', function() {
 });
 
 gulp.task('build-example', function() {
-  var markup = '<!document html>' + ReactDOMServer.renderToString(<ExampleBase />);
+  var markup = '<!document html>' + ReactDOMServer.renderToString(<ExampleBase css={css} />);
   // write file
   fs.writeFileSync('./example/index.html', markup);
 });

@@ -218,6 +218,8 @@ const CalendarDate = React.createClass({
             }
         }
 
+        const dateRenderer = <this.props.dateRenderer date={date} />
+
         return (
             <td className={this.cx({element: 'Date', modifiers: bemModifiers, states: bemStates})}
                 style={cellStyle}
@@ -233,6 +235,7 @@ const CalendarDate = React.createClass({
                 {numStates === 1 &&
                 <div className={this.cx({element: "FullDateStates"})} style={style} />}
               <span className={this.cx({element: "DateLabel"})}>{date.format('D')}</span>
+                {dateRenderer}
                 {selectionModifier ? <CalendarSelection modifier={selectionModifier} pending={pending} /> : null}
                 {highlightModifier ? <CalendarHighlight modifier={highlightModifier} /> : null}
             </td>

@@ -11,6 +11,7 @@ class Base extends React.Component {
           <link href="css/react-calendar.css" rel="stylesheet" />
           <link href="css/example.css" rel="stylesheet" />
           <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1" />
+            <style>{this.props.css}</style>
         </head>
         <body>
           <div id="app" />

@@ -9,7 +9,8 @@ import CustomPropTypes from './utils/CustomPropTypes';
 import Legend from './Legend';
 
 import CalendarMonth from './calendar/CalendarMonth';
-import CalendarDate from './calendar/CalendarDate';
+// import CalendarDate from './calendar/CalendarDate';
+import CalendarDate from './calendar/CalendarDateDuc';
 
 import PaginationArrow from './PaginationArrow';
 
@@ -56,6 +57,7 @@ const DateRangePicker = React.createClass({
     showLegend: React.PropTypes.bool,
     stateDefinitions: React.PropTypes.object,
     value: CustomPropTypes.momentOrMomentRange,
+    dateRenderer: React.PropTypes.func
   },
 
   getDefaultProps() {
@@ -516,6 +518,7 @@ const DateRangePicker = React.createClass({
       onUnHighlightDate: this.onUnHighlightDate,
       dateRangesForDate: this.dateRangesForDate,
       dateComponent: CalendarDate,
+      dateRenderer: this.props.dateRenderer,
       locale: this.props.locale,
     };
 

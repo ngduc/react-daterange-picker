@@ -17,7 +17,7 @@ import QuickSelection from './components/quick-selection';
 
 const today = moment();
 // freeze date to April 1st
-timekeeper.freeze(new Date('2016-04-01'));
+timekeeper.freeze(new Date('2017-01-01'));
 
 function processCodeSnippet(src) {
   var lines = src.split('\n');
@@ -178,6 +178,15 @@ const DatePickerRangeWithSetRangeButtons = React.createClass({
 var mainCodeSnippet = fs.readFileSync(__dirname + '/code-snippets/main.jsx', 'utf8');
 var i18nCodeSnippet = fs.readFileSync(__dirname + '/code-snippets/i18n.jsx', 'utf8');
 
+class CustomDateRenderer extends React.Component {
+  render() {
+    if (this.props.date.toISOString().indexOf('2017-01-18') === 0) {
+      return <div className="__event">Event</div>
+    }
+    return null
+  }
+}
+
 const Index = React.createClass({
   getInitialState() {
     return {
@@ -238,16 +247,13 @@ const Index = React.createClass({
     const initialStart = moment().add(1, 'weeks').startOf('day');
     const initialEnd = moment().add(1, 'weeks').add(3, 'days').startOf('day');
 
-    return (
-      <main>
-        <Header />
-        <GithubRibbon />
+    const dateRenderer = () => <div className="__event">Event</div>
 
-        <div className="content">
-          <div className="example">
-            <DatePickerRange
+    return (
+        <section>
+          <DatePickerRange
               firstOfWeek={1}
-              numberOfCalendars={2}
+              numberOfCalendars={12}
               selectionType='range'
               minimumDate={new Date()}
               maximumDate={moment().add(2, 'years').toDate()}
@@ -256,86 +262,109 @@ const Index = React.createClass({
               defaultState="available"
               value={moment.range(initialStart, initialEnd)}
               showLegend={true}
-              />
-            <CodeSnippet language="javascript">
-              {processCodeSnippet(mainCodeSnippet)}
-            </CodeSnippet>
-          </div>
+              dateRenderer={CustomDateRenderer}
+          />
+        </section>
+    )
 
-          <Features />
-          <Install />
-
-          <div className="examples">
-            <h2>Examples</h2>
-
-            <div className="example">
-              <h4>Range with no date states</h4>
-              <DatePickerRange
-                numberOfCalendars={2}
-                selectionType="range"
-                minimumDate={new Date()} />
-            </div>
-
-            <div className="example">
-              <h4>Range with day-long ranges allowed</h4>
-              <DatePickerRange
-                numberOfCalendars={2}
-                selectionType="range"
-                singleDateRange={true}
-                minimumDate={new Date()} />
-            </div>
-
-            <div className="example">
-              <h4>Single with no date states</h4>
-              <DatePickerSingle
-                numberOfCalendars={2}
-                selectionType="single"
-                minimumDate={new Date()} />
-            </div>
-
-            <div className="example">
-              <h4>
-                i18n support based on moment/locale &nbsp;&nbsp;
-                <select ref="locale" onChange={this._selectLocale} name="locale" id="locale">
-                  <option value="en">EN</option>
-                  <option value="ar-sa">AR</option>
-                  <option value="fr">FR</option>
-                  <option value="it">IT</option>
-                  <option value="es">ES</option>
-                  <option value="de">DE</option>
-                  <option value="ru">RU</option>
-                </select>
-              </h4>
-              <DatePickerRange
-                locale={this.state.locale}
-                numberOfCalendars={2}
-                selectionType="range"
-                minimumDate={new Date()} />
-              <CodeSnippet language="javascript">
-                {processCodeSnippet(i18nCodeSnippet)}
-              </CodeSnippet>
-            </div>
-
-            <div className="example">
-              <h4>Setting Calendar Externally</h4>
-              <DatePickerSingleWithSetDateButtons
-                numberOfCalendars={1}
-                selectionType="single"
-                />
-            </div>
-
-            <div className="example">
-              <h4>Setting Calendar Range Externally</h4>
-              <DatePickerRangeWithSetRangeButtons
-                numberOfCalendars={2}
-                selectionType="range"
-                />
-            </div>
-          </div>
-        </div>
-        <Footer />
-      </main>
-    );
+    // return (
+    //   <main>
+    //     <Header />
+    //     <GithubRibbon />
+    //
+    //     <div className="content">
+    //       <div className="example">
+    //         <DatePickerRange
+    //           firstOfWeek={1}
+    //           numberOfCalendars={2}
+    //           selectionType='range'
+    //           minimumDate={new Date()}
+    //           maximumDate={moment().add(2, 'years').toDate()}
+    //           stateDefinitions={stateDefinitions}
+    //           dateStates={dateRanges}
+    //           defaultState="available"
+    //           value={moment.range(initialStart, initialEnd)}
+    //           showLegend={true}
+    //           />
+    //         <CodeSnippet language="javascript">
+    //           {processCodeSnippet(mainCodeSnippet)}
+    //         </CodeSnippet>
+    //       </div>
+    //
+    //       <Features />
+    //       <Install />
+    //
+    //       <div className="examples">
+    //         <h2>Examples</h2>
+    //
+    //         <div className="example">
+    //           <h4>Range with no date states</h4>
+    //           <DatePickerRange
+    //             numberOfCalendars={2}
+    //             selectionType="range"
+    //             minimumDate={new Date()} />
+    //         </div>
+    //
+    //         <div className="example">
+    //           <h4>Range with day-long ranges allowed</h4>
+    //           <DatePickerRange
+    //             numberOfCalendars={2}
+    //             selectionType="range"
+    //             singleDateRange={true}
+    //             minimumDate={new Date()} />
+    //         </div>
+    //
+    //         <div className="example">
+    //           <h4>Single with no date states</h4>
+    //           <DatePickerSingle
+    //             numberOfCalendars={2}
+    //             selectionType="single"
+    //             minimumDate={new Date()} />
+    //         </div>
+    //
+    //         <div className="example">
+    //           <h4>
+    //             i18n support based on moment/locale &nbsp;&nbsp;
+    //             <select ref="locale" onChange={this._selectLocale} name="locale" id="locale">
+    //               <option value="en">EN</option>
+    //               <option value="ar-sa">AR</option>
+    //               <option value="fr">FR</option>
+    //               <option value="it">IT</option>
+    //               <option value="es">ES</option>
+    //               <option value="de">DE</option>
+    //               <option value="ru">RU</option>
+    //             </select>
+    //           </h4>
+    //           <DatePickerRange
+    //             locale={this.state.locale}
+    //             numberOfCalendars={2}
+    //             selectionType="range"
+    //             minimumDate={new Date()} />
+    //           <CodeSnippet language="javascript">
+    //             {processCodeSnippet(i18nCodeSnippet)}
+    //           </CodeSnippet>
+    //         </div>
+    //
+    //         <div className="example">
+    //           <h4>Setting Calendar Externally</h4>
+    //           <DatePickerSingleWithSetDateButtons
+    //             numberOfCalendars={1}
+    //             selectionType="single"
+    //             />
+    //         </div>
+    //
+    //         <div className="example">
+    //           <h4>Setting Calendar Range Externally</h4>
+    //           <DatePickerRangeWithSetRangeButtons
+    //             numberOfCalendars={2}
+    //             selectionType="range"
+    //             />
+    //         </div>
+    //       </div>
+    //     </div>
+    //     <Footer />
+    //   </main>
+    // );
   },
 });
 
