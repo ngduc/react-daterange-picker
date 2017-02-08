@@ -121,11 +121,12 @@ var CalendarDate = _react2.default.createClass({
         document.removeEventListener('touchend', this.touchEnd);
     },
     touchStart: function touchStart(event) {
-        event.preventDefault();
-        this.setState({
-            mouseDown: true
-        });
-        document.addEventListener('touchend', this.touchEnd);
+        // I don't need range selection yet.
+        // event.preventDefault();
+        // this.setState({
+        //     mouseDown: true,
+        // });
+        // document.addEventListener('touchend', this.touchEnd);
     },
     mouseEnter: function mouseEnter() {
         this.props.onHighlightDate(this.props.date);
