@@ -94,11 +94,12 @@ const CalendarDate = React.createClass({
     },
 
     touchStart(event) {
-        event.preventDefault();
-        this.setState({
-            mouseDown: true,
-        });
-        document.addEventListener('touchend', this.touchEnd);
+        // I don't need range selection yet.
+        // event.preventDefault();
+        // this.setState({
+        //     mouseDown: true,
+        // });
+        // document.addEventListener('touchend', this.touchEnd);
     },
 
     mouseEnter() {
